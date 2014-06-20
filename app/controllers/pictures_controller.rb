@@ -1,10 +1,14 @@
 class PicturesController < ApplicationController
   def index
-    @pictures = Picture.all
+    @most_recent_pictures = Picture.most_recent_five
   end
 
   def show
     @picture = Picture.find(params[:id])
+  end
+
+  def self.created_before(time)
+    where("created_at < ?", time)
   end
 
   def new
